@@ -40,8 +40,9 @@ linearSearch(array, value) {
 };
 
 //for Binary Search:
-binarySearch(array, value, start, end) {
+binarySearch(reqValue, start, end, count=0) {
   console.log('hello binary');
+  count++
   var start = start === undefined ? 0 : start;
   var end = end === undefined ? sortedDataStore.length : end;
 
