@@ -8,41 +8,46 @@ class App extends React.Component {
     search: null,
   };
 
-  binarySearch(arr, value, start = 0, end = arr.length - 1, count = 0) {
-    let index = Math.floor((start + end) / 2);
-    let item = arr[index];
-
-    console.log(count);
-    console.log(start);
-    if (item === value) {
-      return `Binary search: ${value} found in ${count} tries`;
-    } else if (item < value) {
-      return this.binarySearch(arr, value, index + 1, end, (count = count + 1));
-    } else if (item > value) {
-      return this.binarySearch(
-        arr,
-        value,
-        start,
-        index - 1,
-        (count = count + 1)
-      );
+  binarySearch(arr, value, start = 0, end = arr.length - 1, count = { count: 0 }) {
+    if (start > end) {
+      return `Binary search: Not Found in input data! Took ${count.count} tries`;
     }
 
-    return `Binary search: Not Found in input data! Took ${count} tries`;
+    let index = Math.floor((start + end) / 2);
+    let item = arr[index];
+    
+    if (item === value) {
+      return `Binary search: ${value} found in ${count.count} tries`;
+    } else if (item < value) {
+      console.log(item, value)
+      count.count++
+      return this.binarySearch(arr, value, index + 1, end, count);
+    } else if (item > value) {
+      count.count++
+      return this.binarySearch(arr, value, start, index - 1, count);
+    }
   }
 
   linearSearch(arr, value) {
-    let count;
+    let count = 0;
     for (let i = 0; i < arr.length; i++) {
+      count++;
       if (arr[i] === value) {
-        count = i;
-        return ` Linear search: ${value} found in ${i} tries`;
+        
+        return ` Linear search: ${value} found in ${count} tries`;
       }
     }
-
     return `Linear search: Not Found in input data! Took ${count} tries`;
   }
 
+  chooseAlgo(value){
+    if (value === 'Linear') {
+      this.setState({ search: 'Linear' })
+    } else if (value === 'Binary') {
+      this.setState({ search: 'Binary' })
+
+    }
+  }
   handleSubmit = e => {
     e.preventDefault();
 
@@ -58,7 +63,7 @@ class App extends React.Component {
       this.renderResult(this.state.value);
     }
 
-    if (this.state.search === 'linear') {
+    if (this.state.search === 'Linear') {
       let index = this.linearSearch(dataStore, value);
       this.setState({ value: index });
       this.renderResult(this.state.value);
@@ -87,7 +92,7 @@ class App extends React.Component {
           <button
             type="submit"
             onClick={() => {
-              this.setState({ search: 'Binary' });
+              this.chooseAlgo('Binary');
             }}
           >
             Binary Search
@@ -95,7 +100,7 @@ class App extends React.Component {
           <br></br><br></br>
           <button
             onClick={() => {
-              this.setState({ search: 'linear' });
+              this.chooseAlgo('Linear');
             }}
           >
             Linear Search
