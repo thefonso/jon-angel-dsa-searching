@@ -1,26 +1,104 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      value: ''
+    }
+
+//functional binders
+this.linearSearch = this.linearSearch.bind(this);
+this.binarySearch = this.binarySearch.bind(this);
+this.handleSubmit = this.handleSubmit.bind(this);
+this.handleChange = this.handleChange.bind(this);
+  }
+
+
+
+
+
+//<input>"find (number)"
+// <button>LS
+//<button>BS
+//
+//input was found in x searches
+
+///////////////////////////////////////
+//for Linear Search:
+linearSearch(array, value) {
+  console.log('hello linear')
+  for (let i = 0; i < array.length; i++) {
+    if (array[i] == value) {
+      return i;
+    }
+  }
+  return -1;
+};
+
+//for Binary Search:
+binarySearch(array, value, start, end) {
+  console.log('hello binary');
+  var start = start === undefined ? 0 : start;
+  var end = end === undefined ? array.length : end;
+
+  if (start > end) {
+    return -1;
+  }
+
+  const index = Math.floor((start + end) / 2);
+  const item = array[index];
+
+  console.log(start, end);
+  if (item == value) {
+    return index;
+  }
+  else if (item < value) {
+    return this.binarySearch(array, value, index + 1, end);
+  }
+  else if (item > value) {
+    return this.binarySearch(array, value, start, index - 1);
+  }
+};
+///////////////////////////////////////
+handleChange(e) {
+  this.setState({value: e.target.value})
+}
+
+handleSubmit(e) {
+  alert('Something was submitted! This was: ' + this.state.value);
+  e.preventDefault();
+  //e.preventDefault()
+ // if (this.state.function === this.linearSearch){
+   
+  }
+
+
+
+render() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <form onSubmit={this.handleSubmit}>
+    <label>
+    Find this number:
+    <input type="text" value={this.state.value} onChange={this.handleChange} />
+    </label>
+    <input id="LS" type="submit" value="LS" />
+    <input id="BS" type="submit" value="BS" />
+    </form>
+        
+        {/*<button onClick={() => this.linearSearch()}>LS</button> */}
+        {/* <button onClick={() => this.binarySearch()}>BS</button> */}
+  
       </header>
     </div>
   );
 }
+}
+
+
 
 export default App;
