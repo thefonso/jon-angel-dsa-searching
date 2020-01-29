@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { dataStore, sortedDataStore } from '../dataStore';
+import { dataStore, sortedDataStore } from './dataStore';
 
 class App extends React.Component {
   constructor(props) {
@@ -19,17 +19,10 @@ this.handleChange = this.handleChange.bind(this);
 
 
 
-
-
-//<input>"find (number)"
-// <button>LS
-//<button>BS
-//
-//input was found in x searches
-
-///////////////////////////////////////
 //for Linear Search:
 linearSearch(array, value) {
+  let dataStore = array;
+  //let this.state.value = value;
   console.log('hello linear')
   for (let i = 0; i < dataStore.length; i++) {
     if (dataStore[i] == value) {
@@ -41,6 +34,7 @@ linearSearch(array, value) {
 
 //for Binary Search:
 binarySearch(array, value, start, end) {
+ // let sortedDataStore = array;
   console.log('hello binary');
   var start = start === undefined ? 0 : start;
   var end = end === undefined ? sortedDataStore.length : end;

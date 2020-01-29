@@ -201,4 +201,4 @@ const sortedDataStore = [
   98
 ];
 
-export { dataStore, sortedDataStore }
+export { dataStore, sortedDataStore };
