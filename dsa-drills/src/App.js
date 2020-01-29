@@ -86,12 +86,11 @@ render() {
     Find this number:
     <input type="text" value={this.state.value} onChange={this.handleChange} />
     </label>
-    <input id="LS" type="submit" value="LS" />
-    <input id="BS" type="submit" value="BS" />
+    <button onClick={() => this.linearSearch()}>LS</button>
+    <button onClick={() => this.binarySearch()}>BS</button>
+    {/*<input id="LS" type="submit" value="LS" /> */}
+    {/*<input id="BS" type="submit" value="BS" /> */}
     </form>
-        
-        {/*<button onClick={() => this.linearSearch()}>LS</button> */}
-        {/* <button onClick={() => this.binarySearch()}>BS</button> */}
   
       </header>
     </div>
